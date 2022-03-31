@@ -7,6 +7,11 @@ Citizen.CreateThread(function()
 	end
 end)
 
+RequestAnimDict("mp_arresting")
+while (not HasAnimDictLoaded("mp_arresting")) do 
+    Citizen.Wait(0) 
+end
+
 Citizen.CreateThread(function()
     while true do
         Wait(0)
@@ -34,7 +39,7 @@ AddEventHandler('lockpicking:startlockpicking', function()
     local distance = #(GetEntityCoords(closeveh) - pedc)
     if distance < 3 then
         if lockstatus == 2 then
-            ExecuteCommand("e uncuff")
+            TaskPlayAnim(ped,"mp_arresting","a_uncuff", 8.0, -8, -1, 49, 0, 0, 0, 0)
             SetCurrentPedWeapon(PlayerPedId(), GetHashKey("WEAPON_UNARMED"),true)
             FreezeEntityPosition(PlayerPedId(), true)
             TriggerServerEvent('lockpicking:removeitem')
@@ -62,7 +67,7 @@ function lockpick()
     exports['mythic_notify']:DoHudText('inform', 'The vehicle is now tethered')
     SetVehicleDoorsLocked(veh, 0)
     SetVehicleDoorsLockedForAllPlayers(veh, false)
-    ExecuteCommand("stopemote")
+    ClearPedTasks(PlayerPedId())
 end
 
 function lockpickfail()
@@ -74,7 +79,7 @@ function lockpickfail()
     SetVehicleAlarm(veh, true)
     SetVehicleAlarmTimeLeft(veh, 4000)
     SetVehicleDoorsLocked(veh, 2)
-    ExecuteCommand("stopemote")
+    ClearPedTasks(PlayerPedId())
 end
 
 function progbar()
