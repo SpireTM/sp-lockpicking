@@ -7,3 +7,5 @@ taskbarskills: https://github.com/firestix77/taskbarskill
 mythic_notify: https://github.com/JayMontana36/mythic_notify
 mythic_progbar: https://github.com/HalCroves/mythic_progbar
 dpemotes: https://github.com/andristum/dpemotes
+
+because i'am very lazy sorry
